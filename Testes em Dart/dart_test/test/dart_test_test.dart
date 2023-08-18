@@ -1,8 +1,10 @@
-import 'dart:math';
-
+import 'package:dart_test/class/viacep.dart';
 import 'package:dart_test/dart_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+@GenerateMocks([MockViaCep])
 void main() {
   test('calculate', () {
     expect(calculate(), 42);
@@ -43,4 +45,12 @@ void main() {
       });
     });
   });
+
+  test('retorna cep', () async {
+    ViaCep viacep = ViaCep();
+    var body = await viacep.retornarCep('01001-000');
+    expect(body['bairro'], equals('Sé'));
+  });
 }
+
+class MockViaCep extends Mock implements ViaCep {}
